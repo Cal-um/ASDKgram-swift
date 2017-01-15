@@ -9,7 +9,7 @@
 import Foundation
 
 class PhotoFeedModel: NSObject {
-	
+
 	public private(set) var photoFeedModelType: PhotoFeedModelType
 	public private(set) var photos: [PhotoModel] = []
 	public private(set) var imageSize: CGSize
@@ -20,28 +20,28 @@ class PhotoFeedModel: NSObject {
 	public private(set) var totalItems: Int = 0
 	private var fetchPageInProgress: Bool = false
 	private var refreshFeedInProgress: Bool = false
-	
+
 	init(initWithPhotoFeedModelType: PhotoFeedModelType, requiredImageSize: CGSize) {
 		self.photoFeedModelType = initWithPhotoFeedModelType
 		self.imageSize = requiredImageSize
 		self.url = URL.URLForFeedModelType(feedModelType: initWithPhotoFeedModelType)
 		print("PhotoFeedModelINIT")
 	}
-	
+
 	var numberOfItemsInFeed: Int {
 		return photos.count
 	}
-	
+
 	// return in completion handler the number of additions and the status of internet connection
-	
+
 	func updateNewBatchOfPopularPhotos(additionsAndConnectionStatusCompletion: @escaping (Int, InternetStatus) -> ()) {
-		
+
 		guard !fetchPageInProgress else { return }
-		
+
 		fetchPageInProgress = true
 		fetchNextPageOfPopularPhotos(replaceData: false) { [unowned self] additions, errors in
 			self.fetchPageInProgress = false
-			
+
 			if let error = errors {
 				switch error {
 				case .noInternetConnection:
@@ -53,30 +53,30 @@ class PhotoFeedModel: NSObject {
 			}
 		}
 	}
-	
+
 	private func fetchNextPageOfPopularPhotos(replaceData: Bool, numberOfAdditionsCompletion: @escaping (Int, NetworkingErrors?) -> ()) {
 		print("FetchPhotosCalled")
-		
+
 		if currentPage == totalPages, currentPage != 0 {
 			return numberOfAdditionsCompletion(0, .customError("No pages left to parse"))
 		}
-		
+
 		var newPhotos: [PhotoModel] = []
 		var newIDs: [Int] = []
-		
+
 		let pageToFetch = currentPage + 1
-		
+
 		let url = self.url.addImageParameterForClosestImageSizeAndpage(size: imageSize, page: pageToFetch)
-		
+
 		WebService().load(resource: parsePopularPage(withURL: url)) { [unowned self] result in
-			
+
 			switch result {
 				case .success(let popularPage):
 					print(popularPage.totalNumberOfItems)
 				self.totalItems = popularPage.totalNumberOfItems
 				self.totalPages = popularPage.totalPages
 				self.currentPage = popularPage.page
-				
+
 				for photo in popularPage.photos {
 					if !replaceData || !self.ids.contains(photo.photoID) {
 						print(photo)
@@ -84,7 +84,7 @@ class PhotoFeedModel: NSObject {
 						newIDs.append(photo.photoID)
 					}
 				}
-				
+
 				DispatchQueue.main.async {
 					if replaceData {
 						self.photos = newPhotos
@@ -96,7 +96,7 @@ class PhotoFeedModel: NSObject {
 					print(newPhotos.count)
 					numberOfAdditionsCompletion(newPhotos.count, nil)
 				}
-				
+
 				case .failure(let fail):
 				print(fail)
 				numberOfAdditionsCompletion(0, fail)
@@ -115,6 +115,3 @@ enum InternetStatus {
 	case connected
 	case noConnection
 }
-	
-	
-

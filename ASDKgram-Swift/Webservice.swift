@@ -11,10 +11,10 @@ import UIKit
 final class WebService {
 	func load<A>(resource: Resource<A>, completion: @escaping (Result<A>) -> ()) {
 		URLSession.shared.dataTask(with: resource.url) { data, response, error in
-			
+
 			// Check for errors in responses.
 			let errorCheck = self.checkForNetworkErrors(data, response, error)
-			
+
 			if let data = errorCheck.1 {
 				completion(resource.parse(data))
 			} else if let error = errorCheck.0 {
@@ -25,11 +25,10 @@ final class WebService {
 }
 
 extension WebService {
-	
+
 	// returns a tuple with .0 as error and .1 as data.
-	
-	fileprivate func checkForNetworkErrors(_ data: Data?,_ response: URLResponse?,_ error: Error?) -> (NetworkingErrors?, Data?) {
-		
+	// swiftlint:disable force_cast
+	fileprivate func checkForNetworkErrors(_ data: Data?, _ response: URLResponse?, _ error: Error?) -> (NetworkingErrors?, Data?) {
 		// Check for errors in responses.
 		guard error == nil else {
 			if (error as! NSError).domain == NSURLErrorDomain && ((error as! NSError).code == NSURLErrorNotConnectedToInternet || (error as! NSError).code == NSURLErrorTimedOut) {
@@ -38,13 +37,13 @@ extension WebService {
 				return (.returnedError(error!), nil)
 			}
 		}
-		
+
 		guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
 			return (.invalidStatusCode("Request returned status code other than 2xx \(response)"), nil)
 		}
-		
+
 		guard let data = data else { return (.dataReturnedNil, nil) }
-		
+
 		return (nil, data)
 	}
 }
@@ -55,7 +54,7 @@ struct Resource<A> {
 }
 
 extension Resource {
-	
+
 	init(url: URL, parseJSON: @escaping (Any) -> Result<A>) {
 		self.url = url
 		self.parse = { data	in

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A7BEDD91E2543C0005769D4 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3A7BEDD81E2543C0005769D4 /* .swiftlint.yml */; };
 		3AB33F5E1E1F94530039F711 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB33F5D1E1F94530039F711 /* AppDelegate.swift */; };
 		3AB33F651E1F94530039F711 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB33F641E1F94530039F711 /* Assets.xcassets */; };
 		3AB33F681E1F94530039F711 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AB33F661E1F94530039F711 /* LaunchScreen.storyboard */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		019E984FADA258377FC6B2D8 /* Pods-ASDKgram-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASDKgram-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ASDKgram-Swift/Pods-ASDKgram-Swift.debug.xcconfig"; sourceTree = "<group>"; };
+		3A7BEDD81E2543C0005769D4 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = .swiftlint.yml; path = ../.swiftlint.yml; sourceTree = "<group>"; };
 		3AB33F5A1E1F94520039F711 /* ASDKgram-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ASDKgram-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB33F5D1E1F94530039F711 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AB33F641E1F94530039F711 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				3AB33F661E1F94530039F711 /* LaunchScreen.storyboard */,
 				3AB33F691E1F94530039F711 /* Info.plist */,
 				3AB33F6F1E1F99900039F711 /* ASDKgram-Swift-Bridging-Header.h */,
+				3A7BEDD81E2543C0005769D4 /* .swiftlint.yml */,
 			);
 			path = "ASDKgram-Swift";
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				3AB33F581E1F94520039F711 /* Resources */,
 				154783123A953C3AFB9805CF /* [CP] Embed Pods Frameworks */,
 				07D25AC7E9C9518F14F0C929 /* [CP] Copy Pods Resources */,
+				3A7BEDD71E254278005769D4 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -259,6 +263,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A7BEDD91E2543C0005769D4 /* .swiftlint.yml in Resources */,
 				3AB33F681E1F94530039F711 /* LaunchScreen.storyboard in Resources */,
 				3AB33F651E1F94530039F711 /* Assets.xcassets in Resources */,
 			);
@@ -296,6 +301,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ASDKgram-Swift/Pods-ASDKgram-Swift-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		3A7BEDD71E254278005769D4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 		A5A729883237749EE5D2DB1C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -9,7 +9,7 @@
 import UIKit
 
 class PhotoTableViewCell: UITableViewCell {
-	
+
 	var photoModel: PhotoModel? {
 		didSet {
 			if let url = photoModel?.url, let avatarURL = photoModel?.ownerPicURL, let likes = photoModel?.likesCount {
@@ -23,12 +23,12 @@ class PhotoTableViewCell: UITableViewCell {
 			photoDescriptionLabel.text = photoModel?.descriptionText
 		}
 	}
-	
+
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupViews()
 	}
-	
+
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -40,7 +40,7 @@ class PhotoTableViewCell: UITableViewCell {
 		imageView.backgroundColor = .blue
 		return imageView
 	}()
-	
+
 	let avatarImageView: CustomImageView = {
 		let imageView = CustomImageView()
 		imageView.contentMode = .scaleAspectFill
@@ -48,31 +48,31 @@ class PhotoTableViewCell: UITableViewCell {
 		imageView.backgroundColor = .blue
 		return imageView
 	}()
-	
+
 	let usernameLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()
-	
+
 	let timeIntervalLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()
-	
+
 	let photoLikesLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()
-	
+
 	let photoDescriptionLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()
-	
+
 	func setupViews() {
 		addSubview(photoImageView)
 		addSubview(avatarImageView)
@@ -82,9 +82,9 @@ class PhotoTableViewCell: UITableViewCell {
 		addSubview(photoDescriptionLabel)
 		setupConstraints()
 	}
-	
+
 	func setupConstraints() {
-	
+
 		NSLayoutConstraint.activate ([
 			//photoImageView
 			photoImageView.topAnchor.constraint(equalTo: topAnchor, constant: 50),
