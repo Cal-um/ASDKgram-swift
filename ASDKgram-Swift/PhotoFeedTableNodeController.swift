@@ -31,6 +31,7 @@ class PhotoFeedTableNodeController: ASViewController<ASTableNode> {
 		node.dataSource = self
 		node.delegate = self
 		node.view.leadingScreensForBatching = 2.5
+		navigationController?.hidesBarsOnSwipe = true
 
 	}
 
@@ -59,7 +60,6 @@ class PhotoFeedTableNodeController: ASViewController<ASTableNode> {
 		photoFeed.updateNewBatchOfPopularPhotos() { additions, connectionStatus in
 			switch connectionStatus {
 			case .connected:
-				print(additions)
 				self.activityIndicator.stopAnimating()
 				self.addRowsIntoTableNode(newPhotoCount: additions)
 				context?.completeBatchFetching(true)
@@ -74,7 +74,6 @@ class PhotoFeedTableNodeController: ASViewController<ASTableNode> {
 	}
 
 	func addRowsIntoTableNode(newPhotoCount newPhotos: Int) {
-		print("Add rows called")
 		let indexRange = (photoFeed.photos.count - newPhotos..<photoFeed.photos.count)
 		let indexPaths = indexRange.map { IndexPath(row: $0, section: 0) }
 		node.insertRows(at: indexPaths, with: .none)
@@ -100,7 +99,6 @@ extension PhotoFeedTableNodeController: ASTableDataSource, ASTableDelegate {
 	}
 
 	func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
-		print("batchcalled")
 		fetchNewBatchWithContext(context)
 	}
 }

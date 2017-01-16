@@ -10,11 +10,11 @@ import Foundation
 
 typealias JSONDictionary = [String : Any]
 
-class PhotoModel: NSObject {
+struct PhotoModel {
 
 	let url: String
 	let photoID: Int
-	let uploadDateString: String
+	let dateString: String
 	let descriptionText: String
 	let likesCount: Int
 	let ownerUserName: String
@@ -30,8 +30,77 @@ class PhotoModel: NSObject {
 		self.photoID = photoID
 		self.descriptionText = descriptionText
 		self.likesCount = likesCount
-		self.uploadDateString = date
+		self.dateString = date
 		self.ownerUserName = username
 		self.ownerPicURL = ownerPicURL
+	}
+}
+
+extension PhotoModel {
+
+	// MARK: - Attributed Strings
+
+	func attrStringForUserName(withSize size: CGFloat) -> NSAttributedString {
+		let attr = [
+			NSForegroundColorAttributeName : UIColor.darkGray,
+			NSFontAttributeName: UIFont.boldSystemFont(ofSize: size)
+		]
+		return NSAttributedString(string: self.ownerUserName, attributes: attr)
+	}
+
+	func attrStringForDescription(withSize size: CGFloat) -> NSAttributedString {
+		let attr = [
+			NSForegroundColorAttributeName : UIColor.darkGray,
+			NSFontAttributeName: UIFont.systemFont(ofSize: size)
+		]
+		return NSAttributedString(string: self.descriptionText, attributes: attr)
+	}
+
+	func attrStringLikes(withSize size: CGFloat) -> NSAttributedString {
+
+		let formatter = NumberFormatter()
+		formatter.numberStyle = .decimal
+		let formattedLikesNumber: String? = formatter.string(from: NSNumber(value: self.likesCount))
+		let likesString: String = "\(formattedLikesNumber!) Likes"
+		let textAttr = [NSForegroundColorAttributeName : UIColor.mainBarTintColor(), NSFontAttributeName: UIFont.systemFont(ofSize: size)]
+		let likesAttrString = NSAttributedString(string: likesString, attributes: textAttr)
+
+		let heartAttr = [NSForegroundColorAttributeName : UIColor.red, NSFontAttributeName: UIFont.systemFont(ofSize: size)]
+		let heartAttrString = NSAttributedString(string: "♥︎ ", attributes: heartAttr)
+
+		let combine = NSMutableAttributedString()
+		combine.append(heartAttrString)
+		combine.append(likesAttrString)
+		return combine
+	}
+
+	func attrStringForTimeSinceString(withSize size: CGFloat) -> NSAttributedString {
+
+		let attr = [
+			NSForegroundColorAttributeName : UIColor.mainBarTintColor(),
+			NSFontAttributeName: UIFont.systemFont(ofSize: size)
+		]
+
+		let date = Date.iso8601Formatter.date(from: self.dateString)!
+		return NSAttributedString(string: timeStringSince(fromConverted: date), attributes: attr)
+	}
+
+	private func timeStringSince(fromConverted date: Date) -> String {
+
+		let diffDates = NSCalendar.current.dateComponents(Set([.day, .hour, .second]), from: date, to: Date())
+
+		if let week = diffDates.day, week > 7 {
+			 return "\(week / 7)w"
+		} else if let day = diffDates.day, day > 0 {
+			return "\(day)d"
+		} else if let hour = diffDates.hour, hour > 0 {
+			return "\(hour)h"
+		} else if let second = diffDates.second, second > 0 {
+			return "\(second)s"
+		} else if let zero = diffDates.second, zero == 0 {
+			return "1s"
+		} else {
+			return "ERROR"
+		}
 	}
 }

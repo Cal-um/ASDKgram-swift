@@ -12,15 +12,20 @@ class PhotoTableViewCell: UITableViewCell {
 
 	var photoModel: PhotoModel? {
 		didSet {
-			if let url = photoModel?.url, let avatarURL = photoModel?.ownerPicURL, let likes = photoModel?.likesCount {
-				print("image loaded")
-				photoImageView.loadImageUsingUrlString(urlString: url)
-				avatarImageView.loadImageUsingUrlString(urlString: avatarURL)
-				photoLikesLabel.text = "Likes: \(likes)"
+			if let model = photoModel {
+				photoImageView.loadImageUsingUrlString(urlString: model.url)
+				avatarImageView.loadImageUsingUrlString(urlString: model.ownerPicURL)
+				photoLikesLabel.attributedText = model.attrStringLikes(withSize: Constants.CellLayout.FontSize)
+				usernameLabel.attributedText = model.attrStringForUserName(withSize: Constants.CellLayout.FontSize)
+				timeIntervalLabel.attributedText = model.attrStringForTimeSinceString(withSize: Constants.CellLayout.FontSize)
+				photoDescriptionLabel.attributedText = model.attrStringForDescription(withSize: Constants.CellLayout.FontSize)
+				// FIX ME:- TextLabel will not go multiline.
+				photoDescriptionLabel.sizeToFit()
+				var rect = photoDescriptionLabel.frame
+				let availableWidth = self.bounds.size.width - Constants.CellLayout.HorizontalBuffer * 2
+				rect.size = model.attrStringForDescription(withSize: Constants.CellLayout.FontSize).boundingRect(with: CGSize(width: availableWidth, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil).size
+				photoDescriptionLabel.frame = rect
 			}
-			usernameLabel.text = photoModel?.ownerUserName
-			timeIntervalLabel.text = "24 hours ago"
-			photoDescriptionLabel.text = photoModel?.descriptionText
 		}
 	}
 
@@ -46,6 +51,8 @@ class PhotoTableViewCell: UITableViewCell {
 		imageView.contentMode = .scaleAspectFill
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		imageView.backgroundColor = .blue
+		imageView.layer.cornerRadius = Constants.CellLayout.UserImageHeight / 2
+		imageView.clipsToBounds = true
 		return imageView
 	}()
 
@@ -70,6 +77,7 @@ class PhotoTableViewCell: UITableViewCell {
 	let photoDescriptionLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
+		label.numberOfLines = 3
 		return label
 	}()
 
@@ -87,29 +95,41 @@ class PhotoTableViewCell: UITableViewCell {
 
 		NSLayoutConstraint.activate ([
 			//photoImageView
-			photoImageView.topAnchor.constraint(equalTo: topAnchor, constant: 50),
+			photoImageView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.CellLayout.HeaderHeight),
 			photoImageView.widthAnchor.constraint(equalTo: widthAnchor),
 			photoImageView.heightAnchor.constraint(equalTo: photoImageView.widthAnchor),
 			// avatarImageView
-			avatarImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
-			avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-			avatarImageView.heightAnchor.constraint(equalToConstant: 30),
+			avatarImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.CellLayout.HorizontalBuffer),
+			avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.CellLayout.HorizontalBuffer),
+			avatarImageView.heightAnchor.constraint(equalToConstant: Constants.CellLayout.UserImageHeight),
 			avatarImageView.widthAnchor.constraint(equalTo: avatarImageView.heightAnchor),
 			// usernameLabel
-			usernameLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 10),
-			usernameLabel.rightAnchor.constraint(equalTo: timeIntervalLabel.leftAnchor, constant: -10),
+			usernameLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: Constants.CellLayout.HorizontalBuffer),
+			usernameLabel.rightAnchor.constraint(equalTo: timeIntervalLabel.leftAnchor, constant: -Constants.CellLayout.HorizontalBuffer),
 			usernameLabel.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor),
 			// timeIntervalLabel
-			timeIntervalLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10),
+			timeIntervalLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -Constants.CellLayout.HorizontalBuffer),
 			timeIntervalLabel.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor),
 			// photoLikesLabel
-			photoLikesLabel.topAnchor.constraint(equalTo: photoImageView.bottomAnchor, constant: 5),
-			photoLikesLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
+			photoLikesLabel.topAnchor.constraint(equalTo: photoImageView.bottomAnchor, constant: Constants.CellLayout.VerticalBuffer),
+			photoLikesLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.CellLayout.HorizontalBuffer),
 			// photoDescriptionLabel
-			photoDescriptionLabel.topAnchor.constraint(equalTo: photoLikesLabel.bottomAnchor, constant: 5),
-			photoDescriptionLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
-			photoDescriptionLabel.widthAnchor.constraint(equalTo: widthAnchor, constant: -10),
-			photoDescriptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
+			photoDescriptionLabel.topAnchor.constraint(equalTo: photoLikesLabel.bottomAnchor, constant: Constants.CellLayout.VerticalBuffer),
+			photoDescriptionLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.CellLayout.HorizontalBuffer),
+			//photoDescriptionLabel.widthAnchor.constraint(equalTo: widthAnchor, constant: -Constants.CellLayout.HorizontalBuffer),
+			photoDescriptionLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -Constants.CellLayout.HorizontalBuffer),
+			photoDescriptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.CellLayout.VerticalBuffer)
 		])
+	}
+
+	class func height(for photo: PhotoModel, withWidth width: CGFloat) -> CGFloat {
+		let photoHeight = width
+		let font = UIFont.systemFont(ofSize: Constants.CellLayout.FontSize)
+		let likesHeight = round(font.lineHeight)
+		let descriptionAttrString = photo.attrStringForDescription(withSize: Constants.CellLayout.FontSize)
+		let availableWidth = width - Constants.CellLayout.HorizontalBuffer * 2
+		let descriptionHeight = descriptionAttrString.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil).size.height
+
+		return likesHeight + descriptionHeight + photoHeight + Constants.CellLayout.HeaderHeight + Constants.CellLayout.VerticalBuffer * 3
 	}
 }

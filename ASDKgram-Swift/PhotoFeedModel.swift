@@ -25,7 +25,6 @@ class PhotoFeedModel: NSObject {
 		self.photoFeedModelType = initWithPhotoFeedModelType
 		self.imageSize = requiredImageSize
 		self.url = URL.URLForFeedModelType(feedModelType: initWithPhotoFeedModelType)
-		print("PhotoFeedModelINIT")
 	}
 
 	var numberOfItemsInFeed: Int {
@@ -55,7 +54,6 @@ class PhotoFeedModel: NSObject {
 	}
 
 	private func fetchNextPageOfPopularPhotos(replaceData: Bool, numberOfAdditionsCompletion: @escaping (Int, NetworkingErrors?) -> ()) {
-		print("FetchPhotosCalled")
 
 		if currentPage == totalPages, currentPage != 0 {
 			return numberOfAdditionsCompletion(0, .customError("No pages left to parse"))
@@ -72,14 +70,12 @@ class PhotoFeedModel: NSObject {
 
 			switch result {
 				case .success(let popularPage):
-					print(popularPage.totalNumberOfItems)
 				self.totalItems = popularPage.totalNumberOfItems
 				self.totalPages = popularPage.totalPages
 				self.currentPage = popularPage.page
 
 				for photo in popularPage.photos {
 					if !replaceData || !self.ids.contains(photo.photoID) {
-						print(photo)
 						newPhotos.append(photo)
 						newIDs.append(photo.photoID)
 					}
@@ -93,7 +89,7 @@ class PhotoFeedModel: NSObject {
 						self.photos += newPhotos
 						self.ids += newIDs
 					}
-					print(newPhotos.count)
+
 					numberOfAdditionsCompletion(newPhotos.count, nil)
 				}
 

@@ -15,25 +15,22 @@ class PhotoTableNodeCell: ASCellNode {
 		super.init()
 		self.photoImageNode.url = URL(string: photoModel.url)
 		self.avatarImageNode.url = URL(string: photoModel.ownerPicURL)
-		let attrs = [NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 16)!]
-		self.usernameLabel.attributedText = NSAttributedString(string: photoModel.ownerUserName, attributes: attrs)
-		self.timeIntervalLabel.attributedText = NSAttributedString(string: "24 Hours", attributes: attrs)
-		self.photoLikesLabel.attributedText = NSAttributedString(string: String("Likes: \(photoModel.likesCount)"), attributes: attrs)
-		self.photoDescriptionLabel.attributedText = NSAttributedString(string: photoModel.descriptionText, attributes: attrs)
+		self.usernameLabel.attributedText = photoModel.attrStringForUserName(withSize: Constants.CellLayout.FontSize)
+		self.timeIntervalLabel.attributedText = photoModel.attrStringForTimeSinceString(withSize: Constants.CellLayout.FontSize)
+		self.photoLikesLabel.attributedText = photoModel.attrStringLikes(withSize: Constants.CellLayout.FontSize)
+		self.photoDescriptionLabel.attributedText = photoModel.attrStringForDescription(withSize: Constants.CellLayout.FontSize)
 		self.automaticallyManagesSubnodes = true
 	}
 
 	let photoImageNode: ASNetworkImageNode = {
 		let imageNode = ASNetworkImageNode()
 		imageNode.contentMode = .scaleAspectFill
-		imageNode.backgroundColor = .blue
 		return imageNode
 	}()
 
-	let avatarImageNode: ASNetworkImageNode = {
+	var avatarImageNode: ASNetworkImageNode = {
 		let imageNode = ASNetworkImageNode()
 		imageNode.contentMode = .scaleAspectFill
-		imageNode.backgroundColor = .blue
 		return imageNode
 	}()
 
@@ -65,8 +62,8 @@ class PhotoTableNodeCell: ASCellNode {
 
 		let headerStack = ASStackLayoutSpec.horizontal()
 		headerStack.alignItems = .center
-		avatarImageNode.style.preferredSize = CGSize(width: 30, height: 30)
-		headerChildren.append(ASInsetLayoutSpec(insets: UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 10), child: avatarImageNode))
+		avatarImageNode.style.preferredSize = CGSize(width: Constants.CellLayout.UserImageHeight, height: Constants.CellLayout.UserImageHeight)
+		headerChildren.append(ASInsetLayoutSpec(insets: Constants.CellLayout.InsetForAvatar, child: avatarImageNode))
 		usernameLabel.style.flexShrink = 1.0
 		headerChildren.append(usernameLabel)
 
@@ -74,23 +71,18 @@ class PhotoTableNodeCell: ASCellNode {
 		spacer.style.flexGrow = 1.0
 		headerChildren.append(spacer)
 
-		timeIntervalLabel.style.spacingBefore = 10.0
+		timeIntervalLabel.style.spacingBefore = Constants.CellLayout.HorizontalBuffer
 		headerChildren.append(timeIntervalLabel)
 
 		let footerStack = ASStackLayoutSpec.vertical()
-		footerStack.spacing = 5.0
+		footerStack.spacing = Constants.CellLayout.VerticalBuffer
 		footerStack.children = [photoLikesLabel, photoDescriptionLabel]
 		headerStack.children = headerChildren
 
 		let verticalStack = ASStackLayoutSpec.vertical()
 
-		verticalStack.children = [ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10), child: headerStack), ASRatioLayoutSpec(ratio: 1.0, child: photoImageNode), ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), child: footerStack)]
+		verticalStack.children = [ASInsetLayoutSpec(insets: Constants.CellLayout.InsetForHeader, child: headerStack), ASRatioLayoutSpec(ratio: 1.0, child: photoImageNode), ASInsetLayoutSpec(insets: Constants.CellLayout.InsetForFooter, child: footerStack)]
 
 		return verticalStack
 	}
-}
-
-class networkImageNodeCornerRadius: ASNetworkImageNode {
-	
-	override var image
 }

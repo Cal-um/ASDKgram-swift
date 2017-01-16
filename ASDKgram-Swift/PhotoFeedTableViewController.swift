@@ -29,6 +29,7 @@ class PhotoFeedTableViewController: UITableViewController {
 		activityIndicatorConfig()
 		tableViewProperties()
 		fetchNewBatch()
+		navigationController?.hidesBarsOnSwipe = true
 	}
 
 	func fetchNewBatch() {
@@ -37,7 +38,6 @@ class PhotoFeedTableViewController: UITableViewController {
 		photoFeed.updateNewBatchOfPopularPhotos() { additions, connectionStatus in
 			switch connectionStatus {
 			case .connected:
-				print(additions)
 				self.activityIndicator.stopAnimating()
 				self.addRowsIntoTableView(newPhotoCount: additions)
 			case .noConnection:
@@ -70,7 +70,6 @@ class PhotoFeedTableViewController: UITableViewController {
 		tableView.register(PhotoTableViewCell.self, forCellReuseIdentifier: "photoCell")
 		tableView.allowsSelection = false
 		tableView.rowHeight = UITableViewAutomaticDimension
-		tableView.estimatedRowHeight = screenSizeForWidth.width + 100
 		tableView.separatorStyle = .none
 	}
 }
@@ -94,6 +93,10 @@ extension PhotoFeedTableViewController {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: "photoCell", for: indexPath) as? PhotoTableViewCell else { fatalError("Wrong cell type") }
 		cell.photoModel = photoFeed.photos[indexPath.row]
 		return cell
+	}
+
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return PhotoTableViewCell.height(for: photoFeed.photos[indexPath.row], withWidth: self.view.frame.size.width)
 	}
 
 	override func scrollViewDidScroll(_ scrollView: UIScrollView) {

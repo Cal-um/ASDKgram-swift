@@ -13,18 +13,18 @@ extension URL {
 	static func URLForFeedModelType(feedModelType: PhotoFeedModelType) -> URL {
 		switch feedModelType {
 		case .photoFeedModelTypePopular:
-			return URL(string: assemble500PXURLString(endpoint: FiveHundredPXConstants.URLS.PopularEndpoint))!
+			return URL(string: assemble500PXURLString(endpoint: Constants.PX500.URLS.PopularEndpoint))!
 
 		case .photoFeedModelTypeLocation:
-			return URL(string: assemble500PXURLString(endpoint: FiveHundredPXConstants.URLS.SearchEndpoint))!
+			return URL(string: assemble500PXURLString(endpoint: Constants.PX500.URLS.SearchEndpoint))!
 
 		case .photoFeedModelTypeUserPhotos:
-			return URL(string: assemble500PXURLString(endpoint: FiveHundredPXConstants.URLS.UserEndpoint))!
+			return URL(string: assemble500PXURLString(endpoint: Constants.PX500.URLS.UserEndpoint))!
 		}
 	}
 
 	private static func assemble500PXURLString(endpoint: String) -> String {
-		return FiveHundredPXConstants.URLS.Host + endpoint + FiveHundredPXConstants.URLS.ConsumerKey
+		return Constants.PX500.URLS.Host + endpoint + Constants.PX500.URLS.ConsumerKey
 	}
 
 	mutating func addImageParameterForClosestImageSizeAndpage(size: CGSize, page: Int) -> URL {
