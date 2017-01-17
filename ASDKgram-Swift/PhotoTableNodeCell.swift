@@ -31,6 +31,7 @@ class PhotoTableNodeCell: ASCellNode {
 	var avatarImageNode: ASNetworkImageNode = {
 		let imageNode = ASNetworkImageNode()
 		imageNode.contentMode = .scaleAspectFill
+		imageNode.imageModificationBlock = ASImageNodeRoundBorderModificationBlock(0, nil)
 		return imageNode
 	}()
 
