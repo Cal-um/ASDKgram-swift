@@ -42,7 +42,6 @@ class PhotoTableViewCell: UITableViewCell {
 		let imageView = CustomImageView()
 		imageView.contentMode = .scaleAspectFill
 		imageView.translatesAutoresizingMaskIntoConstraints = false
-		imageView.backgroundColor = .blue
 		return imageView
 	}()
 
@@ -50,7 +49,6 @@ class PhotoTableViewCell: UITableViewCell {
 		let imageView = CustomImageView()
 		imageView.contentMode = .scaleAspectFill
 		imageView.translatesAutoresizingMaskIntoConstraints = false
-		imageView.backgroundColor = .blue
 		imageView.layer.cornerRadius = Constants.CellLayout.UserImageHeight / 2
 		imageView.clipsToBounds = true
 		return imageView
