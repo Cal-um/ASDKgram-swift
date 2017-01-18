@@ -1,5 +1,5 @@
 //
-//  CustomImageView.swift
+//  NetworkImageView.swift
 //  ASDKgram-Swift
 //
 //  Created by Calum Harris on 09/01/2017.
@@ -10,7 +10,7 @@ import UIKit
 
 let imageCache = NSCache<NSString, UIImage>()
 
-class CustomImageView: UIImageView {
+class NetworkImageView: UIImageView {
 
 	var imageUrlString: String?
 

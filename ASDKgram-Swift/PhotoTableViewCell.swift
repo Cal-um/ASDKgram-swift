@@ -37,15 +37,15 @@ class PhotoTableViewCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	let photoImageView: CustomImageView = {
-		let imageView = CustomImageView()
+	let photoImageView: NetworkImageView = {
+		let imageView = NetworkImageView()
 		imageView.contentMode = .scaleAspectFill
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		return imageView
 	}()
 
-	let avatarImageView: CustomImageView = {
-		let imageView = CustomImageView()
+	let avatarImageView: NetworkImageView = {
+		let imageView = NetworkImageView()
 		imageView.contentMode = .scaleAspectFill
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		imageView.layer.cornerRadius = Constants.CellLayout.UserImageHeight / 2

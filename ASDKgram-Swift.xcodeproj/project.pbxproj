@@ -22,9 +22,9 @@
 		3AB33F881E20ED460039F711 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB33F871E20ED460039F711 /* PhotoModel.swift */; };
 		3AB33F8C1E2106F30039F711 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB33F8B1E2106F30039F711 /* URL.swift */; };
 		3AB33F961E2269D40039F711 /* PopularPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB33F951E2269D40039F711 /* PopularPageModel.swift */; };
-		3AB33F981E22A0080039F711 /* FiveHundredPXConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB33F971E22A0080039F711 /* FiveHundredPXConvenience.swift */; };
+		3AB33F981E22A0080039F711 /* PX500Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB33F971E22A0080039F711 /* PX500Convenience.swift */; };
 		3AB33F9E1E22D9DB0039F711 /* PhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB33F9D1E22D9DB0039F711 /* PhotoTableViewCell.swift */; };
-		3AB33FA21E230A160039F711 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB33FA11E230A160039F711 /* CustomImageView.swift */; };
+		3AB33FA21E230A160039F711 /* NetworkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB33FA11E230A160039F711 /* NetworkImageView.swift */; };
 		3AB33FA41E2337850039F711 /* PhotoTableNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB33FA31E2337850039F711 /* PhotoTableNodeCell.swift */; };
 		7E438240D2C4026931D60594 /* Pods_ASDKgram_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7D664E4FF432C4AE232A56 /* Pods_ASDKgram_Swift.framework */; };
 /* End PBXBuildFile section */
@@ -48,9 +48,9 @@
 		3AB33F871E20ED460039F711 /* PhotoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		3AB33F8B1E2106F30039F711 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		3AB33F951E2269D40039F711 /* PopularPageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularPageModel.swift; sourceTree = "<group>"; };
-		3AB33F971E22A0080039F711 /* FiveHundredPXConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiveHundredPXConvenience.swift; sourceTree = "<group>"; };
+		3AB33F971E22A0080039F711 /* PX500Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PX500Convenience.swift; sourceTree = "<group>"; };
 		3AB33F9D1E22D9DB0039F711 /* PhotoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTableViewCell.swift; sourceTree = "<group>"; };
-		3AB33FA11E230A160039F711 /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
+		3AB33FA11E230A160039F711 /* NetworkImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkImageView.swift; sourceTree = "<group>"; };
 		3AB33FA31E2337850039F711 /* PhotoTableNodeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTableNodeCell.swift; sourceTree = "<group>"; };
 		4D7D664E4FF432C4AE232A56 /* Pods_ASDKgram_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASDKgram_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3A86E74A8C3F06D7688AACB /* Pods-ASDKgram-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASDKgram-Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-ASDKgram-Swift/Pods-ASDKgram-Swift.release.xcconfig"; sourceTree = "<group>"; };
@@ -144,7 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				3AB33F801E1FDE100039F711 /* Webservice.swift */,
-				3AB33F971E22A0080039F711 /* FiveHundredPXConvenience.swift */,
+				3AB33F971E22A0080039F711 /* PX500Convenience.swift */,
 			);
 			name = Client;
 			sourceTree = "<group>";
@@ -172,7 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				3AB33F9D1E22D9DB0039F711 /* PhotoTableViewCell.swift */,
-				3AB33FA11E230A160039F711 /* CustomImageView.swift */,
+				3AB33FA11E230A160039F711 /* NetworkImageView.swift */,
 			);
 			name = UIKit;
 			sourceTree = "<group>";
@@ -344,9 +344,9 @@
 				3AB33F781E1F9C400039F711 /* PhotoFeedTableNodeController.swift in Sources */,
 				3A2362FB1E2D33A0007E08F1 /* Date.swift in Sources */,
 				3AB33F7B1E1F9E630039F711 /* UIColor.swift in Sources */,
-				3AB33F981E22A0080039F711 /* FiveHundredPXConvenience.swift in Sources */,
+				3AB33F981E22A0080039F711 /* PX500Convenience.swift in Sources */,
 				3AB33FA41E2337850039F711 /* PhotoTableNodeCell.swift in Sources */,
-				3AB33FA21E230A160039F711 /* CustomImageView.swift in Sources */,
+				3AB33FA21E230A160039F711 /* NetworkImageView.swift in Sources */,
 				3AB33F8C1E2106F30039F711 /* URL.swift in Sources */,
 				3AB33F831E20E81E0039F711 /* Constants.swift in Sources */,
 				3AB33F961E2269D40039F711 /* PopularPageModel.swift in Sources */,

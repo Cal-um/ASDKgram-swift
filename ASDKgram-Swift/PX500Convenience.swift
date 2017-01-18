@@ -1,5 +1,5 @@
 //
-//  FiveHundredPXConvenience.swift
+//  PX500Convenience.swift
 //  ASDKgram-Swift
 //
 //  Created by Calum Harris on 08/01/2017.
