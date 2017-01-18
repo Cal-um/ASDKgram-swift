@@ -7,7 +7,6 @@
 //
 // swiftlint:disable force_cast
 
-
 import UIKit
 
 final class WebService {
@@ -29,7 +28,7 @@ final class WebService {
 extension WebService {
 
 	// returns a tuple with .0 as error and .1 as data.
-	
+
 	fileprivate func checkForNetworkErrors(_ data: Data?, _ response: URLResponse?, _ error: Error?) -> (NetworkingErrors?, Data?) {
 		// Check for errors in responses.
 		guard error == nil else {
