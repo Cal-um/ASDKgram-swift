@@ -19,7 +19,6 @@ class PhotoTableViewCell: UITableViewCell {
 				usernameLabel.attributedText = model.attrStringForUserName(withSize: Constants.CellLayout.FontSize)
 				timeIntervalLabel.attributedText = model.attrStringForTimeSinceString(withSize: Constants.CellLayout.FontSize)
 				photoDescriptionLabel.attributedText = model.attrStringForDescription(withSize: Constants.CellLayout.FontSize)
-				// FIX ME:- TextLabel will not go multiline.
 				photoDescriptionLabel.sizeToFit()
 				var rect = photoDescriptionLabel.frame
 				let availableWidth = self.bounds.size.width - Constants.CellLayout.HorizontalBuffer * 2
