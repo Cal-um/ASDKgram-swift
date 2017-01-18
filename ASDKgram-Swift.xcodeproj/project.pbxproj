@@ -39,7 +39,6 @@
 		3AB33F641E1F94530039F711 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AB33F671E1F94530039F711 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3AB33F691E1F94530039F711 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3AB33F6F1E1F99900039F711 /* ASDKgram-Swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ASDKgram-Swift-Bridging-Header.h"; sourceTree = "<group>"; };
 		3AB33F751E1F9C330039F711 /* PhotoFeedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoFeedTableViewController.swift; sourceTree = "<group>"; };
 		3AB33F771E1F9C400039F711 /* PhotoFeedTableNodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoFeedTableNodeController.swift; sourceTree = "<group>"; };
 		3AB33F7A1E1F9E630039F711 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
@@ -100,7 +99,6 @@
 				3AB33F641E1F94530039F711 /* Assets.xcassets */,
 				3AB33F661E1F94530039F711 /* LaunchScreen.storyboard */,
 				3AB33F691E1F94530039F711 /* Info.plist */,
-				3AB33F6F1E1F99900039F711 /* ASDKgram-Swift-Bridging-Header.h */,
 				3A7BEDD81E2543C0005769D4 /* .swiftlint.yml */,
 			);
 			path = "ASDKgram-Swift";
@@ -480,7 +478,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.RenaldoMoon.ASDKgram-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "ASDKgram-Swift/ASDKgram-Swift-Bridging-Header.h";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -497,7 +495,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.RenaldoMoon.ASDKgram-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "ASDKgram-Swift/ASDKgram-Swift-Bridging-Header.h";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

@@ -7,7 +7,7 @@
 //
 // swiftlint:disable nesting
 
-import Foundation
+import UIKit
 
 struct Constants {
 

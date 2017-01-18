@@ -114,7 +114,6 @@ class PhotoTableViewCell: UITableViewCell {
 			// photoDescriptionLabel
 			photoDescriptionLabel.topAnchor.constraint(equalTo: photoLikesLabel.bottomAnchor, constant: Constants.CellLayout.VerticalBuffer),
 			photoDescriptionLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.CellLayout.HorizontalBuffer),
-			//photoDescriptionLabel.widthAnchor.constraint(equalTo: widthAnchor, constant: -Constants.CellLayout.HorizontalBuffer),
 			photoDescriptionLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -Constants.CellLayout.HorizontalBuffer),
 			photoDescriptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.CellLayout.VerticalBuffer)
 		])

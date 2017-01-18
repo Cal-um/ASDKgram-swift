@@ -6,7 +6,7 @@
 //  Copyright © 2017 Calum Harris. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class PhotoFeedModel: NSObject {
 
